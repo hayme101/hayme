@@ -1,0 +1,29 @@
+## Flag for GoDaddy
+Options +MultiViews
+
+RewriteBase /
+
+## Remove extensions
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+## Redirect from extensions to non-extensions
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,NE,L]
+
+## Server Only
+
+## Redirect from www - non-www
+## RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+## RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+## Redirect from non-www - www
+## RewriteCond %{HTTP_HOST} ^yourdomain\.com$ [NC]
+## RewriteRule ^(.*)$ http://www.yourdomain.com/$1 [L, R=301]
+
+## SSL Redirect
+## RewriteEngine On
+## RewriteCond %{HTTPS} !=On
+## RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
